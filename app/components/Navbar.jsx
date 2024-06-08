@@ -1,41 +1,11 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import {
-  RegisterLink,
-  LoginLink,
-  LogoutLink,
-} from "@kinde-oss/kinde-auth-nextjs/components";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import React from "react";
+import NavbarItem from "./NavbarItem";
 
-export default async function Navbar() {
-  const { isAuthenticated } = getKindeServerSession();
-
+export default function Navbar() {
   return (
-    <nav className="border-b bg-background h-[10vh] flex items-center">
-      {/* Div for the left side */}
-      <div className="container flex items-center justify-between">
-        <Link href="/">
-          <h1 className="text-2xl font-bold">MovieShorts</h1>
-        </Link>
-      </div>
-
-      {/* Div for the right side */}
-      <div className="flex items-center gap-x-5 pr-5">
-        {(await isAuthenticated()) ? (
-          <LogoutLink>
-            <Button>Log out</Button>
-          </LogoutLink>
-        ) : (
-          <div className="flex items-center gap-x-5 pr-5">
-            <LoginLink>
-              <Button>Log In</Button>
-            </LoginLink>
-            <RegisterLink>
-              <Button variant="secondary">Sign Up</Button>
-            </RegisterLink>
-          </div>
-        )}
-      </div>
-    </nav>
+    <div className="flex justify-center bg-slate-300 p-4 lg:text-lg gap-6 text-black">
+      <NavbarItem title="Trending" param="fetchTrending" />
+      <NavbarItem title="Top Rated" param="fetchTopRated" />
+    </div>
   );
 }
